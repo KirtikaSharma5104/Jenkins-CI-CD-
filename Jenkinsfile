@@ -4,93 +4,93 @@ pipeline {
     stages {
         stage('Build') {
             steps {
+                echo 'Building the code...'
+                // Simulate a build process, e.g., using Maven
                 script {
-                    echo 'Building the code using Maven...'
-                    // Specify the build automation tool
-                    echo 'Tool: Maven'
+                    echo 'Build automation tool: Maven'
                 }
             }
         }
         stage('Unit and Integration Tests') {
             steps {
+                echo 'Running unit and integration tests...'
+                // Simulate running tests
                 script {
-                    echo 'Running unit and integration tests...'
-                    // Specify the test automation tools
-                    echo 'Tools: JUnit for unit tests, Selenium for integration tests'
+                    echo 'Test automation tool: JUnit for unit tests, Selenium for integration tests'
                 }
             }
             post {
                 always {
-                    mail to: 'kirtikasharma5104@gmail.com',
-                         subject: "Jenkins: Unit and Integration Tests Stage Completed",
-                         body: "Unit and Integration Tests have completed. Status: ${currentBuild.currentResult}\n\nLogs:\n${currentBuild.rawBuild.log}"
+                    // Send email notification after tests
+                    emailext subject: "Unit and Integration Tests Completed",
+                            body: "The unit and integration tests stage has completed.",
+                            to: "kirtikasharma5104@gmail.com",
+                            attachLog: true
                 }
             }
         }
         stage('Code Analysis') {
             steps {
+                echo 'Analyzing code...'
+                // Simulate code analysis
                 script {
-                    echo 'Analyzing code quality...'
-                    // Specify the code analysis tool
-                    echo 'Tool: SonarQube'
+                    echo 'Code analysis tool: SonarQube'
                 }
             }
         }
         stage('Security Scan') {
             steps {
+                echo 'Performing security scan...'
+                // Simulate a security scan
                 script {
-                    echo 'Performing security scan...'
-                    // Specify the security scanning tool
-                    echo 'Tool: OWASP ZAP'
+                    echo 'Security scan tool: OWASP Dependency-Check'
                 }
             }
             post {
                 always {
-                    mail to: 'kirtikasharma5104@gmail.com',
-                         subject: "Jenkins: Security Scan Stage Completed",
-                         body: "Security Scan has completed. Status: ${currentBuild.currentResult}\n\nLogs:\n${currentBuild.rawBuild.log}"
+                    // Send email notification after security scan
+                    emailext subject: "Security Scan Completed",
+                            body: "The security scan stage has completed.",
+                            to: "kirtikasharma5104@gmail.com",
+                            attachLog: true
                 }
             }
         }
         stage('Deploy to Staging') {
             steps {
+                echo 'Deploying to staging environment...'
+                // Simulate deployment to staging
                 script {
-                    echo 'Deploying application to staging server...'
-                    // Specify the deployment tool or environment
-                    echo 'Environment: AWS EC2'
+                    echo 'Deployment target: AWS EC2 instance (staging)'
                 }
             }
         }
         stage('Integration Tests on Staging') {
             steps {
+                echo 'Running integration tests on staging...'
+                // Simulate running integration tests on staging
                 script {
-                    echo 'Running integration tests on staging...'
-                    // Specify the testing environment
-                    echo 'Tools: JUnit, Selenium'
+                    echo 'Integration tests tool: Selenium'
                 }
             }
         }
         stage('Deploy to Production') {
             steps {
+                echo 'Deploying to production environment...'
+                // Simulate deployment to production
                 script {
-                    echo 'Deploying application to production server...'
-                    // Specify the production environment
-                    echo 'Environment: AWS EC2'
+                    echo 'Deployment target: AWS EC2 instance (production)'
                 }
             }
         }
     }
 
     post {
-        success {
-            mail to: 'kirtikasharma5104@gmail.com',
-                 subject: "Jenkins Pipeline Success",
-                 body: "The Jenkins pipeline has completed successfully."
-        }
-        failure {
-            mail to: 'kirtikasharma5104@gmail.com',
-                 subject: "Jenkins Pipeline Failed",
-                 body: "The Jenkins pipeline has failed. Check the Jenkins logs for more details.\n\nLogs:\n${currentBuild.rawBuild.log}"
+        always {
+            emailext subject: "Jenkins Pipeline Completed",
+                    body: "The Jenkins pipeline has finished executing.",
+                    to: "kirtikasharma5104@gmail.com",
+                    attachLog: true
         }
     }
 }
