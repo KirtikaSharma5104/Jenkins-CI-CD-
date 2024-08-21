@@ -23,8 +23,7 @@ pipeline {
                 always {
                     mail to: 'kirtikasharma5104@gmail.com',
                          subject: "Jenkins: Unit and Integration Tests Stage Completed",
-                         body: "Unit and Integration Tests have completed. Status: ${currentBuild.currentResult}",
-                         attachLog: true
+                         body: "Unit and Integration Tests have completed. Status: ${currentBuild.currentResult}\n\nLogs:\n${currentBuild.rawBuild.log}"
                 }
             }
         }
@@ -49,8 +48,7 @@ pipeline {
                 always {
                     mail to: 'kirtikasharma5104@gmail.com',
                          subject: "Jenkins: Security Scan Stage Completed",
-                         body: "Security Scan has completed. Status: ${currentBuild.currentResult}",
-                         attachLog: true
+                         body: "Security Scan has completed. Status: ${currentBuild.currentResult}\n\nLogs:\n${currentBuild.rawBuild.log}"
                 }
             }
         }
@@ -92,8 +90,7 @@ pipeline {
         failure {
             mail to: 'kirtikasharma5104@gmail.com',
                  subject: "Jenkins Pipeline Failed",
-                 body: "The Jenkins pipeline has failed. Check the Jenkins logs for more details.",
-                 attachLog: true
+                 body: "The Jenkins pipeline has failed. Check the Jenkins logs for more details.\n\nLogs:\n${currentBuild.rawBuild.log}"
         }
     }
 }
