@@ -7,11 +7,19 @@ pipeline {
                 echo 'Building the code...'
             }
             post {
-                always {
-                    emailext (
+                success {
+                    emailext(
                         to: 'kirtikasharma5104@gmail.com',
-                        subject: 'Jenkins Build Completed',
-                        body: 'The build stage has completed.',
+                        subject: 'Build Success',
+                        body: 'The build was successful.',
+                        attachLog: true
+                    )
+                }
+                failure {
+                    emailext(
+                        to: 'kirtikasharma5104@gmail.com',
+                        subject: 'Build Failure',
+                        body: 'The build failed. Please check the log for details.',
                         attachLog: true
                     )
                 }
@@ -21,9 +29,9 @@ pipeline {
 
     post {
         always {
-            emailext (
+            emailext(
                 to: 'kirtikasharma5104@gmail.com',
-                subject: 'Jenkins Pipeline Completed',
+                subject: 'Pipeline Complete',
                 body: 'The Jenkins pipeline has finished executing.',
                 attachLog: true
             )
