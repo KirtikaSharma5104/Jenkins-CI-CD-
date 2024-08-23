@@ -1,17 +1,40 @@
 pipeline {
     agent any
+
     stages {
-        stage('Test Email') {
+        stage('Build') {
             steps {
-                script {
+                echo 'Building the code...'
+            }
+            post {
+                success {
                     emailext(
                         to: 'kirtikasharma5104@gmail.com',
-                        subject: 'Test Email from Jenkins',
-                        body: 'This is a test email to verify the email configuration in Jenkins.',
+                        subject: 'Build Success',
+                        body: 'The build was successful.',
+                        attachLog: true
+                    )
+                }
+                failure {
+                    emailext(
+                        to: 'kirtikasharma5104@gmail.com',
+                        subject: 'Build Failure',
+                        body: 'The build failed. Please check the log for details.',
                         attachLog: true
                     )
                 }
             }
+        }
+    }
+
+    post {
+        always {
+            emailext(
+                to: 'kirtikasharma5104@gmail.com',
+                subject: 'Pipeline Complete',
+                body: 'The Jenkins pipeline has finished executing.',
+                attachLog: true
+            )
         }
     }
 }
