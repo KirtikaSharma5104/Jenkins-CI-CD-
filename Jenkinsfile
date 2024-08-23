@@ -5,7 +5,6 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building the code...'
-                // Simulate a build process, e.g., using Maven
                 script {
                     echo 'Build automation tool: Maven'
                 }
@@ -14,14 +13,12 @@ pipeline {
         stage('Unit and Integration Tests') {
             steps {
                 echo 'Running unit and integration tests...'
-                // Simulate running tests
                 script {
                     echo 'Test automation tools: JUnit for unit tests, Selenium for integration tests'
                 }
             }
             post {
                 always {
-                    // Send email notification after tests
                     emailext(
                         to: 'kirtikasharma5104@gmail.com',
                         subject: 'Unit and Integration Tests Completed',
@@ -34,7 +31,6 @@ pipeline {
         stage('Code Analysis') {
             steps {
                 echo 'Analyzing code...'
-                // Simulate code analysis
                 script {
                     echo 'Code analysis tool: SonarQube'
                 }
@@ -43,14 +39,12 @@ pipeline {
         stage('Security Scan') {
             steps {
                 echo 'Performing security scan...'
-                // Simulate a security scan
                 script {
                     echo 'Security scan tool: OWASP Dependency-Check'
                 }
             }
             post {
                 always {
-                    // Send email notification after security scan
                     emailext(
                         to: 'kirtikasharma5104@gmail.com',
                         subject: 'Security Scan Completed',
@@ -63,7 +57,6 @@ pipeline {
         stage('Deploy to Staging') {
             steps {
                 echo 'Deploying to staging environment...'
-                // Simulate deployment to staging
                 script {
                     echo 'Deployment target: AWS EC2 instance (staging)'
                 }
@@ -72,7 +65,6 @@ pipeline {
         stage('Integration Tests on Staging') {
             steps {
                 echo 'Running integration tests on staging...'
-                // Simulate running integration tests on staging
                 script {
                     echo 'Integration tests tool: Selenium'
                 }
@@ -81,7 +73,6 @@ pipeline {
         stage('Deploy to Production') {
             steps {
                 echo 'Deploying to production environment...'
-                // Simulate deployment to production
                 script {
                     echo 'Deployment target: AWS EC2 instance (production)'
                 }
@@ -91,7 +82,6 @@ pipeline {
 
     post {
         always {
-            // Final email after pipeline completion
             emailext(
                 to: 'kirtikasharma5104@gmail.com',
                 subject: 'Jenkins Pipeline Completed',
